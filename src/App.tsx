@@ -81,7 +81,7 @@ function App() {
   const ToggleBtn = styled.button`
     position: absolute;
     top: 12px;
-    right: 600px;
+    right: 500px;
     border: none;
     background-color: ${(props) => props.theme.accentColor};
     padding: 6px;

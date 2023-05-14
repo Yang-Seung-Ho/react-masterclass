@@ -153,6 +153,7 @@ const HomeBtn = styled.button`
 
 function Coin() {
   const { coinId } = useParams<CoinParams>();
+
   const { state } = useLocation<StateProps>();
   const priceMatch = useRouteMatch(`/:coinId/price`);
   const chartMatch = useRouteMatch(`/:coinId/chart`);
@@ -182,7 +183,7 @@ function Coin() {
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
       </Header>
-      <Link to="/">
+      <Link to="/react-masterclass/">
         <HomeBtn>Home</HomeBtn>
       </Link>
       {loading ? (
