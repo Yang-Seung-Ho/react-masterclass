@@ -4,11 +4,10 @@ import styled, {
   keyframes,
   useTheme,
 } from "styled-components";
-import React, { useState } from "react";
-import Router from "./Router";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { QueryClientProvider } from "react-query";
 import { lightTheme, darkTheme } from "./theme";
+import { ToDoList } from "./ToDoLists";
+import NewCategory from "./NewCategory";
+import NewToDoList from "./NewToDoList";
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
   html, body, div, span, applet, object, iframe,
@@ -73,35 +72,11 @@ body {
 `;
 
 function App() {
-  const [themeMode, setThemeMode] = useState("dark");
-
-  const toggleThemeMode = () => {
-    setThemeMode((prevMode) => (prevMode === "dark" ? "light" : "dark"));
-  };
-  const ToggleBtn = styled.button`
-    position: absolute;
-    top: 12px;
-    right: 500px;
-    border: none;
-    background-color: ${(props) => props.theme.accentColor};
-    padding: 6px;
-    border-radius: 6px;
-    &:hover {
-      color: #f5d042;
-      transition: 0.2s ease-in-out;
-      cursor: pointer;
-    }
-  `;
   return (
     <>
-      <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>
-        <GlobalStyle />
-        <ToggleBtn onClick={toggleThemeMode}>
-          {themeMode == "dark" ? "Turn Light" : "Turn Dark"}
-        </ToggleBtn>
-        <Router />
-        <ReactQueryDevtools />
-      </ThemeProvider>
+      <GlobalStyle />
+      <ToDoList />
+      <NewCategory />
     </>
   );
 }
