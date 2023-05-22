@@ -1,6 +1,6 @@
 const API_KEY = "c690b9c3a7df9892f90767be090ab58d";
 const BASE_URL = "https://api.themoviedb.org/3";
-
+// https://api.themoviedb.org/3/search/movie?api_key=api_key&language=en-US&query=hello&page=1&include_adult=false
 export interface results {
   id: number;
   backdrop_path: string;

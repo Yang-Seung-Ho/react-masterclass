@@ -6,7 +6,8 @@ import {
   useViewportScroll,
 } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import { styled } from "styled-components";
 
 const Nav = styled(motion.nav)`
@@ -63,7 +64,7 @@ const Circle = styled(motion.span)`
   right: 0;
   margin: 0 auto;
 `;
-const Search = styled.span`
+const Search = styled.form`
   color: white;
   svg {
     height: 25px;
@@ -72,8 +73,10 @@ const Search = styled.span`
   display: flex;
   align-items: center;
 `;
-
-const Input = styled(motion.input)`
+interface IForm {
+  keyword?: string;
+}
+const Input = styled(motion.input)<IForm>`
   transform-origin: right center;
   position: absolute;
   right: 0px;
@@ -95,8 +98,10 @@ const navVariants: Variants = {
 };
 
 function Header() {
+  const history = useHistory();
   const homeMatch = useRouteMatch("/");
   const tvMatch = useRouteMatch("/tv");
+  const { register, handleSubmit } = useForm<IForm>();
   const [searched, setSearched] = useState(false);
   const inputAnimation = useAnimation();
   const navAnimation = useAnimation();
@@ -123,6 +128,10 @@ function Header() {
     }
     setSearched((prev) => !prev);
   };
+  const onValid = (data: IForm) => {
+    history.push(`search?keyword=${data.keyword}`);
+  };
+
   return (
     <Nav variants={navVariants} animate={navAnimation} initial={"top"}>
       <Col>
@@ -152,7 +161,7 @@ function Header() {
         </Items>
       </Col>
       <Col>
-        <Search>
+        <Search onSubmit={handleSubmit(onValid)}>
           <motion.svg
             onClick={toggleSearch}
             animate={{ x: searched ? -185 : 0 }}
@@ -169,6 +178,7 @@ function Header() {
             ></motion.path>
           </motion.svg>
           <Input
+            {...register("keyword", { required: true, minLength: 2 })}
             initial={{ scaleX: 0 }}
             animate={inputAnimation}
             transition-type="linear"
