@@ -1,3 +1,5 @@
+import exp from "constants";
+
 const API_KEY = "c690b9c3a7df9892f90767be090ab58d";
 const BASE_URL = "https://api.themoviedb.org/3";
 // https://api.themoviedb.org/3/search/movie?api_key=api_key&language=en-US&query=hello&page=1&include_adult=false
@@ -66,4 +68,22 @@ export function getTopRatedTv() {
   return fetch(`${BASE_URL}/tv/top_rated?api_key=${API_KEY}&region=kr`).then(
     (response) => response.json()
   );
+}
+
+export interface ISearch {
+  results: ISearchResults[];
+}
+export interface ISearchResults {
+  id: number;
+  adult: Boolean;
+  backdrop_path: string;
+  poster_path: string;
+  title: string;
+  overview: string;
+}
+
+export function getSearchedWork(keyword: string) {
+  return fetch(
+    `${BASE_URL}/search/multi?api_key=${API_KEY}&query=${keyword}`
+  ).then((response) => response.json());
 }
