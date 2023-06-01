@@ -11,6 +11,7 @@ import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import { styled } from "styled-components";
 
 const Nav = styled(motion.nav)`
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -130,6 +131,7 @@ function Header() {
   };
   const onValid = (data: IForm) => {
     history.push(`search?keyword=${data.keyword}`);
+    window.location.reload();
   };
 
   return (
